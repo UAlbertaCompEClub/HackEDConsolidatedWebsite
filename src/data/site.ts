@@ -139,6 +139,40 @@ export const statusLabel: Record<Status, string> = {
 
 export const tagline = 'Build something worth building.';
 
+// ---------------------------------------------------------------- side decor
+// Drawn in the empty margins beside each section on wide screens (roughly 1370px+).
+// Add ?decor to the URL to get a panel for trying styles live; its "copy config"
+// button gives you a replacement for `decor` below.
+
+export type DecorKind = 'halftone' | 'halftone-in' | 'traces' | 'rain' | 'gutter' | 'ripples' | 'none';
+
+export const decorKinds: [DecorKind, string][] = [
+  ['halftone', 'halftone, dots grow outward'],
+  ['halftone-in', 'halftone, dots grow inward'],
+  ['traces', 'circuit traces'],
+  ['rain', 'code rain'],
+  ['gutter', 'editor gutter'],
+  ['ripples', 'ripples'],
+  ['none', 'none'],
+];
+
+/** keys are section ids (or a selector, for the footer) */
+export const decor: Record<string, DecorKind> = {
+  events: 'traces',
+  about: 'traces',
+  venue: 'traces',
+  faq: 'rain',
+  sponsors: 'rain',
+  footer: 'gutter',
+};
+
+/**
+ * 0 to 1. `amount` is how much gets drawn (wires, rain columns, rings, dot reach);
+ * `motion` is how much of it moves and how fast (0 freezes everything).
+ * The editor gutter ignores both.
+ */
+export const decorTune = { amount: 0.5, motion: 0.35 };
+
 /** scrolls under the hero */
 export const ticker = [
   '24 hours',

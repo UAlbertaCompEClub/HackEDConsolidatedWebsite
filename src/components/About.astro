@@ -172,7 +172,7 @@ const last = ev.schedule?.at(-1)?.at ?? '';
   }
 
   /* lines print in one by one once the log scrolls into view */
-  :global(.js) li {
+  :global(.reveal) li {
     opacity: 0;
     transform: translateX(-6px);
     transition:
@@ -180,15 +180,15 @@ const last = ev.schedule?.at(-1)?.at ?? '';
       transform 0.35s ease;
     transition-delay: calc(var(--i) * 140ms);
   }
-  :global(.js) .log.seen li {
+  :global(.reveal) .log.seen li {
     opacity: 1;
     transform: none;
   }
-  :global(.js) .log.seen li.past {
+  :global(.reveal) .log.seen li.past {
     opacity: 0.45;
   }
   @media (prefers-reduced-motion: reduce) {
-    :global(.js) li {
+    :global(.reveal) li {
       transform: none;
       transition: none;
     }
@@ -196,17 +196,11 @@ const last = ev.schedule?.at(-1)?.at ?? '';
 </style>
 
 <script>
+  import { onReveal } from '../scripts/reveal';
+
   const log = document.querySelector<HTMLElement>('.log');
   if (log) {
-    new IntersectionObserver(
-      (entries, obs) => {
-        if (entries.some((e) => e.isIntersecting)) {
-          log.classList.add('seen');
-          obs.disconnect();
-        }
-      },
-      { threshold: 0.3 },
-    ).observe(log);
+    onReveal(log, () => log.classList.add('seen'));
 
     // with a real schedule: dim what's done, mark what's next, count down to the start
     const items = [...log.querySelectorAll<HTMLElement>('li[data-at]')].filter((li) => li.dataset.at);

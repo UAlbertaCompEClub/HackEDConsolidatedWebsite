@@ -53,9 +53,11 @@ const links = [
 
 <style>
   .foot {
+    /* positioned so it paints above the side-decor canvas */
+    position: relative;
     border-top: 1px solid var(--line);
     padding-block: clamp(56px, 8vw, 96px) 40px;
-    background: linear-gradient(var(--bg), #000);
+    background: linear-gradient(transparent, rgb(0 0 0 / 0.55));
     font-size: 13.5px;
   }
   .top {

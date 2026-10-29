@@ -40,6 +40,10 @@ confirmed yet. Check them before going live.**
 
 ## Deploying
 
-`.github/workflows/deploy.yml` builds and publishes to GitHub Pages on every push to
-`main`. To serve it at hacked.compeclub.com, add `public/CNAME` with that domain and point
-DNS at Pages. Then redirect hackedbeta.compeclub.com here (`/#events` works well).
+The site is hosted on Netlify (which also runs DNS for compeclub.com). Netlify builds
+from this repo on every push to `main`, and `netlify.toml` holds the settings: build with
+`npm run build`, publish `dist/`, Node 22. The file overrides the Netlify dashboard, so
+you don't need to change settings there.
+
+`hackedbeta.compeclub.com` redirects to `hacked.compeclub.com` as long as it's added to the
+same Netlify site as a domain alias (Domain management → Add domain alias).
